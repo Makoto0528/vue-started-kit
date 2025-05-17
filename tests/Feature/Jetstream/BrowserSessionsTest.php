@@ -6,7 +6,7 @@ test('other browser sessions can be logged out', function () {
     $this->actingAs(User::factory()->create());
 
     $response = $this->delete('/user/other-browser-sessions', [
-        'password' => 'password',
+        'password' => 'Password123!',
     ]);
 
     $response->assertSessionHasNoErrors();

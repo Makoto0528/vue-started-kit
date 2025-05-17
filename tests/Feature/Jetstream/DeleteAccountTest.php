@@ -7,7 +7,7 @@ test('user accounts can be deleted', function () {
     $this->actingAs($user = User::factory()->create());
 
     $this->delete('/user', [
-        'password' => 'password',
+        'password' => 'Password123!',
     ]);
 
     expect($user->fresh())->toBeNull();

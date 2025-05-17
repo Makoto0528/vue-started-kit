@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Laravel\Fortify\Features;
 use Laravel\Jetstream\Jetstream;
 
@@ -16,11 +17,13 @@ test('registration screen cannot be rendered if support is disabled', function (
 })->skip(fn () => Features::enabled(Features::registration()), 'Registration support is enabled.');
 
 test('new users can register', function () {
+    $password = Str::password();
+
     $response = $this->post('/register', [
         'name' => 'Test User',
         'email' => 'test@example.com',
-        'password' => 'password',
-        'password_confirmation' => 'password',
+        'password' => $password,
+        'password_confirmation' => $password,
         'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
     ]);
 

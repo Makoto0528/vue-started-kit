@@ -16,7 +16,7 @@ class UserFactory extends Factory
     /**
      * The current password being used by the factory.
      */
-    protected static ?string $password = null;
+    protected static ?string $password = 'Password123!';
 
     /**
      * Define the model's default state.
@@ -54,5 +54,10 @@ class UserFactory extends Factory
     public function withPersonalTeam(?callable $callback = null) : static
     {
         return $this->state([]);
+    }
+
+    public static function getDefaultPassword() : ?string
+    {
+        return static::$password;
     }
 }

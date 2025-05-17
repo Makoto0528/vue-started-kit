@@ -2,17 +2,20 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 test('password can be updated', function () {
     $this->actingAs($user = User::factory()->create());
 
+    $password = Str::password();
+
     $this->put('/user/password', [
-        'current_password' => 'password',
-        'password' => 'new-password',
-        'password_confirmation' => 'new-password',
+        'current_password' => 'Password123!',
+        'password' => $password,
+        'password_confirmation' => $password,
     ]);
 
-    expect(Hash::check('new-password', $user->fresh()->password))->toBeTrue();
+    expect(Hash::check($password, $user->fresh()->password))->toBeTrue();
 });
 
 test('current password must be correct', function () {
@@ -26,7 +29,7 @@ test('current password must be correct', function () {
 
     $response->assertSessionHasErrors();
 
-    expect(Hash::check('password', $user->fresh()->password))->toBeTrue();
+    expect(Hash::check('Password123!', $user->fresh()->password))->toBeTrue();
 });
 
 test('new passwords must match', function () {
@@ -40,5 +43,5 @@ test('new passwords must match', function () {
 
     $response->assertSessionHasErrors();
 
-    expect(Hash::check('password', $user->fresh()->password))->toBeTrue();
+    expect(Hash::check('Password123!', $user->fresh()->password))->toBeTrue();
 });
