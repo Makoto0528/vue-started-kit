@@ -1,6 +1,9 @@
 <?php
 
+// @codeCoverageIgnoreStart
 if (! function_exists('app_version')) {
+    // @codeCoverageIgnoreEnd
+
     function app_version() : string
     {
         $versionFile = base_path('version.json');
