@@ -17,7 +17,7 @@ test('api token permissions can be updated', function () {
         'abilities' => ['create', 'read'],
     ]);
 
-    $this->put('/user/api-tokens/'.$token->id, [
+    $this->put('/user/api-tokens/' . $token->id, [
         'name' => $token->name,
         'permissions' => [
             'delete',
@@ -29,6 +29,4 @@ test('api token permissions can be updated', function () {
         ->can('delete')->toBeTrue()
         ->can('read')->toBeFalse()
         ->can('missing-permission')->toBeFalse();
-})->skip(function () {
-    return ! Features::hasApiFeatures();
-}, 'API support is not enabled.');
+})->skip(fn () => ! Features::hasApiFeatures(), 'API support is not enabled.');
